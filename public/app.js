@@ -7,7 +7,11 @@ require([
     Class,
     App
 ) {
-    var baseUrl = 'http://localhost:1337';
-    this.ambisurf = new App(baseUrl);
-
+    var baseUrl = '/',
+        ambisurf = new App(baseUrl);
+    $('#form').on('submit', function(e) {
+        e.preventDefault();
+        var url = document.getElementById('url').value;
+        ambisurf.setLightByUrl(url);
+    });
 });
