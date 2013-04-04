@@ -16,9 +16,13 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
         },
 
         setLightByUrl: function(url) {
-            var image = this.getImage(url),
-                canvas = this.getCanvasByImage(image),
-                colors = this.getColorsFromCanvas(canvas);
+            var self = this,
+                image = this.getImage(url);
+
+            image.onload = function() {
+                canvas = self.getCanvasByImage(image),
+                colors = self.getColorsFromCanvas(canvas);
+            };
         },
 
         getImageUrl: function(url) {
@@ -28,15 +32,17 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
 
         getImage: function(url) {
             var imgSrc = this.getImageUrl(url),
-                image = document.createElement('img');
+                image = new Image();
             image.src = imgSrc;
-            document.body.appendChild(image);
             return image;
         },
 
         getCanvasByImage: function(image) {
-            // TODO: create canvas
-            var canvas = $('<canvas>');
+            var canvas = document.getElementById('viewport'),
+                context = canvas.getContext('2d');
+            canvas.height = image.height;
+            canvas.width = image.width;
+            context.drawImage(image, 0, 0);
             return canvas;
         },
 
