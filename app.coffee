@@ -3,6 +3,7 @@ express = require('express')
 childProcess = require('child_process')
 crypto = require('crypto')
 fs = require('fs')
+im = require('imagemagick')
 
 app = module.exports = express.createServer()
 
@@ -31,7 +32,11 @@ app.get('/snapshot', (request, response) ->
   unless fs.existsSync(filename)
     lib = "./lib/snapshot.js"
     phantomjs = childProcess.exec("./node_modules/phantomjs/bin/phantomjs #{lib} #{url} #{filename}")
-    phantomjs.on("exit", callback)
+    phantomjs.on("exit", =>
+      im.convert([filename, '-resize', '200x', filename], =>
+        callback()
+      )
+    )
   else
     callback()
 )
