@@ -28,7 +28,9 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
 
         getImage: function(url) {
             var imgSrc = this.getImageUrl(url),
-                image = $('<img>').attr('src', imgSrc);
+                image = document.createElement('img');
+            image.src = imgSrc;
+            document.body.appendChild(image);
             return image;
         },
 
