@@ -1,15 +1,6 @@
-define([
-    'js/underscore',
-    'js/Class',
-    'js/thumbnailer'
-], function(
-    _,
-    Class,
-    Thumbnailer
-) {
+define(['js/underscore', 'js/Class'], function(_, Class) {
     var App = Class.extend({
         baseUrl: undefined,     // baseUrl to screenshot service
-        maxWidth: 200,
 
         init: function(baseUrl) {
             var self = this;
@@ -74,8 +65,9 @@ define([
         getCanvasByImage: function(image) {
             var canvas = document.getElementById('viewport'),
                 context = canvas.getContext('2d');
-            // Resize the image and put in the canvas
-            new Thumbnailer(canvas, image, this.maxWidth, 3);
+            canvas.height = image.height;
+            canvas.width = image.width;
+            context.drawImage(image, 0, 0);
             return canvas;
         },
 
@@ -106,7 +98,6 @@ define([
 
             return result;
         }
-
     });
 
     return App;
