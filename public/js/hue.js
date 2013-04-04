@@ -1,7 +1,5 @@
 define([
-    'js/jquery-1.9.1.min',
 ], function(
-    $
 ) {
     var Hue = {};
 
