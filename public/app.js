@@ -1,22 +1,11 @@
 require([
     "js/underscore",
-    "js/class"
+    "js/class",
+    "js/ambisurf"
 ], function(
     _,
-    Class
+    Class,
+    App
 ) {
-    var App = Class.extend({
-        init: function() {
-            var self = this;
-            $(function() {
-                self.ready();
-            });
-        },
-
-        ready: function() {
-            console.log('Dom ready');
-        }
-    });
-
     this.ambisurf = new App();
 });
