@@ -20,9 +20,34 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
                 image = this.getImage(url);
 
             image.onload = function() {
-                canvas = self.getCanvasByImage(image),
-                colors = self.getColorsFromCanvas(canvas);
+                var canvas = self.getCanvasByImage(image),
+                    colors = self.getColorsFromCanvas(canvas),
+                    hueColors = self.converToHue(colors);
             };
+        },
+
+        converToHue: function(colors) {
+            var r = colors[0],
+                g = colors[1],
+                b = colors[2];
+            r /= 255, g /= 255, b /= 255;
+            var max = Math.max(r, g, b), min = Math.min(r, g, b);
+            var h, s, l = (max + min) / 2;
+
+            if(max == min){
+                h = s = 0;
+            } else {
+                var d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                switch(max){
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+
+            return [Math.floor(h * 360), Math.floor(s * 100), Math.floor(l * 100)];
         },
 
         getImageUrl: function(url) {
@@ -48,15 +73,17 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
 
         getColorsFromCanvas: function(canvas) {
             var context = canvas.getContext('2d'),
-                imageData = context.getImageData(0, 0, 100, 100),
+                imageData = context.getImageData(0, 0, canvas.width, canvas.height),
                 pixels = imageData.data,
                 colors = [],
                 maxValue = 0,
                 freq = {},
                 result;
-            for (var i = 0, o, r, g, b; i < pixels.length; i++) {
-                var c = [pixels[i+0], pixels[i + 1], pixels[i + 2]];
-                if (!(c.r > 250 && c.g > 250 && c.b > 250)) {
+
+            for (var i = 0, r, g, b; i < pixels.length; i += 4) {
+                var c = [pixels[i + 0], pixels[i + 1], pixels[i + 2]];
+                // Skip grey tones in palette
+                if (!(c[0] > 200 && c[1] > 200 && c[2] > 200)) {
                     colors.push(c);
                 }
             }
@@ -72,5 +99,6 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
             return result;
         }
     });
+
     return App;
 });
