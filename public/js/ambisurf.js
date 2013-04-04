@@ -23,7 +23,7 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
 
         getImageUrl: function(url) {
             return this.baseUrl + '/snapshot/?url=' + url;
-        }.
+        },
 
         getImage: function(url) {
             var imgSrc = this.getImageUrl(url),
