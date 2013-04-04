@@ -47,7 +47,13 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
         },
 
         getColorsFromCanvas: function(canvas) {
-            // TODO: get colors
+            var context = canvas.getContext('2d'),
+                imageData = context.getImageData(0, 0, canvas.width, canvas.height),
+                pixels = imageData.data;
+
+            for (var i = 0, num = pixels.length; i < num; i += 4) {
+            }
+
             return [
             ];
         }
