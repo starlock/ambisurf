@@ -4,7 +4,8 @@
   "dependencies": {
     "connect": "2.7.x",
     "express": "2.5.x",
-    "coffee-script": "1.6.x"
+    "coffee-script": "1.6.x",
+    "phantomjs": "1.9.x"
   },
   "engines": {
     "node": "0.10.x",
