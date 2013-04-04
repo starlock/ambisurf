@@ -5,13 +5,18 @@ require([
     _,
     Class
 ) {
-    var Person = Class.extend({
-      init: function(isDancing){
-        this.dancing = isDancing;
-      },
-      dance: function(){
-        console.log('dancing');
-      }
+    var App = Class.extend({
+        init: function() {
+            var self = this;
+            $(function() {
+                self.ready();
+            });
+        },
+
+        ready: function() {
+            console.log('Dom ready');
+        }
     });
-    console.log(new Person(true));
+
+    this.ambisurf = new App();
 });
