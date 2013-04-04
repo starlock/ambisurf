@@ -48,14 +48,28 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
 
         getColorsFromCanvas: function(canvas) {
             var context = canvas.getContext('2d'),
-                imageData = context.getImageData(0, 0, canvas.width, canvas.height),
-                pixels = imageData.data;
-
-            for (var i = 0, num = pixels.length; i < num; i += 4) {
+                imageData = context.getImageData(0, 0, 100, 100),
+                pixels = imageData.data,
+                colors = [],
+                maxValue = 0,
+                freq = {},
+                result;
+            for (var i = 0, o, r, g, b; i < pixels.length; i++) {
+                var c = [pixels[i+0], pixels[i + 1], pixels[i + 2]];
+                if (!(c.r > 250 && c.g > 250 && c.b > 250)) {
+                    colors.push(c);
+                }
             }
 
-            return [
-            ];
+            for (var color in colors) {
+                freq[colors[color]] = (freq[colors[color]] || 0) + 1;
+                if (freq[colors[color]] > maxValue) {
+                    maxValue = freq[colors[color]];
+                    result = colors[color];
+                }
+            }
+
+            return result;
         }
     });
     return App;
