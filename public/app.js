@@ -7,7 +7,7 @@ require([
     Class,
     App
 ) {
-    var baseUrl = '/',
+    var baseUrl = window.location.href,
         ambisurf = new App(baseUrl);
     $('#form').on('submit', function(e) {
         e.preventDefault();

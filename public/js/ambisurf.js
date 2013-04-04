@@ -66,7 +66,7 @@ define([
         },
 
         getImageUrl: function(url) {
-            return this.baseUrl + '/snapshot/?url=' + url;
+            return this.baseUrl + 'snapshot/?url=' + url;
         },
 
         getImage: function(url) {
