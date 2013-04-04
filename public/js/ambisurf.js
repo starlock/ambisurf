@@ -1,6 +1,6 @@
 define([
     'js/underscore',
-    'js/Class',
+    'js/class',
     'js/hue',
     'js/thumbnailer'
 ], function(
