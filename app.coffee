@@ -25,6 +25,7 @@ app.get('/snapshot', (request, response) ->
   callback = => fs.readFile(filename, "binary", (err, file) =>
     response.writeHead(200, {"Content-Type": "image/png"})
     response.write(file, "binary")
+    response.end()
   )
 
   unless fs.existsSync(filename)
