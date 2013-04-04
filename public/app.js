@@ -7,5 +7,7 @@ require([
     Class,
     App
 ) {
-    this.ambisurf = new App();
+    var baseUrl = 'http://localhost:1337';
+    this.ambisurf = new App(baseUrl);
+
 });
