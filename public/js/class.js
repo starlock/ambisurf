@@ -3,11 +3,11 @@
  * MIT Licensed.
  */
 // Inspired by base2 and Prototype
-(function(){
+define([], function() {
   var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 
   // The base Class implementation (does nothing)
-  this.Class = function(){};
+  var Class = function(){};
 
   // Create a new Class that inherits from this class
   Class.extend = function(prop) {
@@ -61,4 +61,7 @@
 
     return Class;
   };
-})();
+
+  return Class;
+
+});
