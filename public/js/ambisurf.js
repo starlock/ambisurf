@@ -1,4 +1,12 @@
-define(['js/underscore', 'js/Class'], function(_, Class) {
+define([
+    'js/underscore',
+    'js/Class',
+    'js/hue'
+], function(
+    _,
+    Class,
+    Hue
+) {
     var App = Class.extend({
         baseUrl: undefined,     // baseUrl to screenshot service
 
@@ -23,6 +31,9 @@ define(['js/underscore', 'js/Class'], function(_, Class) {
                 var canvas = self.getCanvasByImage(image),
                     colors = self.getColorsFromCanvas(canvas),
                     hueColors = self.converToHue(colors);
+
+                // Set all lights to this hue, saturation:
+                Hue.changeColor(32000, 255);
             };
         },
 
